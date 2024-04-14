@@ -1,0 +1,10 @@
+.env
+.exe
+.dll
+
+*.test
+
+*.out
+
+db/
+.idea
