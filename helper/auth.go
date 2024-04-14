@@ -5,6 +5,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"os"
 	"strings"
 )
 
@@ -20,8 +21,9 @@ func AuthMiddleware() gin.HandlerFunc {
 
 		tk := &schemas.Token{}
 
+		secret := os.Getenv("JWT_SECRET")
 		_, err := jwt.ParseWithClaims(header, tk, func(token *jwt.Token) (interface{}, error) {
-			return []byte("secret"), nil
+			return []byte(secret), nil
 		})
 
 		if err != nil {

@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -73,7 +74,8 @@ func createToken(user *schemas.User) (string, error) {
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, tk)
 
-	tokenString, err := token.SignedString([]byte("secret"))
+	secret := os.Getenv("JWT_SECRET")
+	tokenString, err := token.SignedString([]byte(secret))
 	if err != nil {
 		return "", err
 	}

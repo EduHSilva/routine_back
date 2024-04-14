@@ -55,6 +55,11 @@ definitions:
       message:
         type: string
     type: object
+  user.UpdateUserRequest:
+    properties:
+      name:
+        type: string
+    type: object
 info:
   contact: {}
 paths:
@@ -180,6 +185,12 @@ paths:
         name: id
         required: true
         type: integer
+      - description: Request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/user.UpdateUserRequest'
       produces:
       - application/json
       responses:

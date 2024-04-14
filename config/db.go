@@ -2,6 +2,7 @@ package config
 
 import (
 	"errors"
+	"fmt"
 	"github.com/Eduardo681/go_routine/schemas"
 	"github.com/glebarez/sqlite"
 	"gorm.io/driver/postgres"
@@ -41,7 +42,14 @@ func InitDatabase() (*gorm.DB, error) {
 }
 
 func initPostgres(logger *Logger) (*gorm.DB, error) {
-	dsn := "host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai"
+	host := os.Getenv("DB_HOST")
+	user := os.Getenv("DB_USER")
+	password := os.Getenv("DB_PASSWORD")
+	dbName := os.Getenv("DB_NAME")
+	port := os.Getenv("DB_PORT")
+
+	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable", host, user, password, dbName, port)
+
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		logger.ErrF("Postgres connection failed: %s", err)
