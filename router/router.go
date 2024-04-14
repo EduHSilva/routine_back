@@ -14,6 +14,5 @@ func Init() {
 }
 
 func initRoutes(router *gin.Engine) {
-	initOpeningRoutes(router)
 	initUserRoutes(router)
 }

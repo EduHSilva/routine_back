@@ -30,7 +30,6 @@ func InitDatabase() (*gorm.DB, error) {
 		return nil, err
 	}
 
-	err = db.AutoMigrate(&schemas.Opening{})
 	err = db.AutoMigrate(&schemas.User{})
 
 	if err != nil {

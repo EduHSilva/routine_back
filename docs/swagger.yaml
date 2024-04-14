@@ -89,6 +89,34 @@ paths:
       tags:
       - User
   /user:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a User
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.ResponseUser'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+      summary: Delete user
+      tags:
+      - User
     get:
       consumes:
       - application/json
@@ -140,6 +168,30 @@ paths:
           schema:
             $ref: '#/definitions/helper.ErrorResponse'
       summary: Create user
+      tags:
+      - User
+    put:
+      consumes:
+      - application/json
+      description: Update user info
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.ResponseUser'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+      summary: Update user
       tags:
       - User
 swagger: "2.0"

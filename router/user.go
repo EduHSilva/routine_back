@@ -18,6 +18,9 @@ func initUserRoutes(router *gin.Engine) {
 	api.POST("/login", user.LoginHandler)
 	api.POST("/user", user.CreateUserHandler)
 	api.GET("/user", helper.AuthMiddleware(), user.GetUserHandler)
+	api.PUT("/user", helper.AuthMiddleware(), user.UpdateUserHandler)
+	api.DELETE("/user", helper.AuthMiddleware(), user.DeleteUserHandler)
+	api.GET("/users", helper.AuthMiddleware(), user.GetAllUsersHandler)
 
 	api.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 }
