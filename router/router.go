@@ -1,6 +1,7 @@
 package router
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"os"
 )
@@ -11,7 +12,8 @@ func Init() {
 	initRoutes(router)
 
 	port := os.Getenv("PORT")
-	err := router.Run(port)
+	addr := fmt.Sprintf("localhost:%s", port)
+	err := router.Run(addr)
 	if err != nil {
 		return
 	}
