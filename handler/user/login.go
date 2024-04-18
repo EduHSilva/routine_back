@@ -25,15 +25,15 @@ import (
 // @Failure 500 {object} helper.ErrorResponse
 // @Router /login [POST]
 func LoginHandler(ctx *gin.Context) {
-	user := &schemas.User{}
+	loginRequest := &LoginRequest{}
 
-	if err := ctx.BindJSON(&user); err != nil {
+	if err := ctx.BindJSON(&loginRequest); err != nil {
 		logger.ErrF("validation error: %v", err.Error())
 		helper.SendError(ctx, http.StatusBadRequest, err.Error())
 		return
 	}
 
-	findOne(ctx, user.Email, user.Password)
+	findOne(ctx, loginRequest.Email, loginRequest.Password)
 }
 
 func findOne(ctx *gin.Context, email, password string) {
@@ -41,16 +41,19 @@ func findOne(ctx *gin.Context, email, password string) {
 
 	if err := db.Where("Email = ?", email).First(user).Error; err != nil {
 		helper.SendError(ctx, http.StatusBadRequest, "Invalid login credentials. Please try again")
+		return
 	}
 
 	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
 	if err != nil && errors.Is(err, bcrypt.ErrMismatchedHashAndPassword) {
 		helper.SendError(ctx, http.StatusBadRequest, "Invalid login credentials. Please try again")
+		return
 	}
 
 	tokenString, err := createToken(user)
 	if err != nil {
 		helper.SendError(ctx, http.StatusInternalServerError, "Failed to create token")
+		return
 	}
 
 	data := &ResponseLogin{}
