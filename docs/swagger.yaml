@@ -40,6 +40,61 @@ definitions:
       message:
         type: string
     type: object
+  task.CreateTaskRequest:
+    properties:
+      category_id:
+        type: integer
+      date_end:
+        type: string
+      date_start:
+        type: string
+      end_time:
+        type: string
+      frequency:
+        type: string
+      priority:
+        type: string
+      start_time:
+        type: string
+      title:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  task.ResponseData:
+    properties:
+      category:
+        type: string
+      createAt:
+        type: string
+      date_end:
+        type: string
+      date_start:
+        type: string
+      deletedAt:
+        type: string
+      end_time:
+        type: string
+      frequency:
+        type: string
+      id:
+        type: integer
+      priority:
+        type: string
+      start_time:
+        type: string
+      title:
+        type: string
+      updateAt:
+        type: string
+    type: object
+  task.ResponseTask:
+    properties:
+      data:
+        $ref: '#/definitions/task.ResponseData'
+      message:
+        type: string
+    type: object
   user.CreateUserRequest:
     properties:
       email:
@@ -112,7 +167,7 @@ paths:
       - application/json
       description: Get all categories
       parameters:
-      - description: Token de acesso
+      - description: Access token
         in: header
         name: x-access-token
         required: true
@@ -148,7 +203,7 @@ paths:
         name: id
         required: true
         type: integer
-      - description: Token de acesso
+      - description: Access token
         in: header
         name: x-access-token
         required: true
@@ -187,7 +242,7 @@ paths:
         name: id
         required: true
         type: integer
-      - description: Token de acesso
+      - description: Access token
         in: header
         name: x-access-token
         required: true
@@ -223,7 +278,7 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/category.CreateCategoryRequest'
-      - description: Token de acesso
+      - description: Access token
         in: header
         name: x-access-token
         required: true
@@ -282,6 +337,47 @@ paths:
       summary: Login
       tags:
       - User
+  /task:
+    post:
+      consumes:
+      - application/json
+      description: Create a new task
+      parameters:
+      - description: Request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/task.CreateTaskRequest'
+      - description: Access token
+        in: header
+        name: x-access-token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/task.ResponseTask'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Create a task
+      tags:
+      - Task
   /user:
     delete:
       consumes:
@@ -293,7 +389,7 @@ paths:
         name: id
         required: true
         type: integer
-      - description: Token de acesso
+      - description: Access token
         in: header
         name: x-access-token
         required: true
@@ -327,7 +423,7 @@ paths:
       - application/json
       description: Get all users
       parameters:
-      - description: Token de acesso
+      - description: Access token
         in: header
         name: x-access-token
         required: true
@@ -397,7 +493,7 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/user.UpdateUserRequest'
-      - description: Token de acesso
+      - description: Access token
         in: header
         name: x-access-token
         required: true

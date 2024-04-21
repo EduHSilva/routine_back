@@ -36,7 +36,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Token de acesso",
+                        "description": "Access token",
                         "name": "x-access-token",
                         "in": "header",
                         "required": true
@@ -92,7 +92,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "Token de acesso",
+                        "description": "Access token",
                         "name": "x-access-token",
                         "in": "header",
                         "required": true
@@ -148,7 +148,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "Token de acesso",
+                        "description": "Access token",
                         "name": "x-access-token",
                         "in": "header",
                         "required": true
@@ -208,7 +208,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "Token de acesso",
+                        "description": "Access token",
                         "name": "x-access-token",
                         "in": "header",
                         "required": true
@@ -288,6 +288,70 @@ const docTemplate = `{
                 }
             }
         },
+        "/task": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Create a new task",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Create a task",
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/task.CreateTaskRequest"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Access token",
+                        "name": "x-access-token",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/task.ResponseTask"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/user": {
             "get": {
                 "security": [
@@ -309,7 +373,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Token de acesso",
+                        "description": "Access token",
                         "name": "x-access-token",
                         "in": "header",
                         "required": true
@@ -372,7 +436,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "Token de acesso",
+                        "description": "Access token",
                         "name": "x-access-token",
                         "in": "header",
                         "required": true
@@ -470,7 +534,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "Token de acesso",
+                        "description": "Access token",
                         "name": "x-access-token",
                         "in": "header",
                         "required": true
@@ -564,6 +628,90 @@ const docTemplate = `{
             "properties": {
                 "code": {
                     "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "task.CreateTaskRequest": {
+            "type": "object",
+            "properties": {
+                "category_id": {
+                    "type": "integer"
+                },
+                "date_end": {
+                    "type": "string"
+                },
+                "date_start": {
+                    "type": "string"
+                },
+                "end_time": {
+                    "type": "string"
+                },
+                "frequency": {
+                    "type": "string"
+                },
+                "priority": {
+                    "type": "string"
+                },
+                "start_time": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "task.ResponseData": {
+            "type": "object",
+            "properties": {
+                "category": {
+                    "type": "string"
+                },
+                "createAt": {
+                    "type": "string"
+                },
+                "date_end": {
+                    "type": "string"
+                },
+                "date_start": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "type": "string"
+                },
+                "end_time": {
+                    "type": "string"
+                },
+                "frequency": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "priority": {
+                    "type": "string"
+                },
+                "start_time": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "updateAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "task.ResponseTask": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/task.ResponseData"
                 },
                 "message": {
                     "type": "string"

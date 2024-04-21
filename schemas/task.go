@@ -10,7 +10,8 @@ type Task struct {
 	Title      string
 	Frequency  Frequency
 	Priority   Priority
-	Date       time.Time
+	DateStart  time.Time
+	DateEnd    time.Time
 	StartTime  time.Time
 	EndTime    time.Time
 	CategoryID uint `gorm:"not null"`

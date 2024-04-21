@@ -18,3 +18,12 @@ const (
 	Essential Priority = "essential"
 	Normal    Priority = "normal"
 )
+
+type StatusTask string
+
+const (
+	Pendent    StatusTask = "pendent"
+	Completed  StatusTask = "completed"
+	Waiting    StatusTask = "waiting"
+	Incomplete StatusTask = "incomplete"
+)

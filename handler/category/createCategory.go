@@ -22,7 +22,7 @@ import (
 // @Failure 500 {object} helper.ErrorResponse
 // @Failure 401 {object} helper.ErrorResponse
 // @Security ApiKeyAuth
-// @Param x-access-token header string true "Token de acesso"
+// @Param x-access-token header string true "Access token"
 // @Router /category [POST]
 func CreateCategoryHandler(ctx *gin.Context) {
 	request := CreateCategoryRequest{}

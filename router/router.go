@@ -26,4 +26,5 @@ func Init() {
 func initRoutes(router *gin.Engine) {
 	initUserRoutes(router)
 	initCategoryRoutes(router)
+	initTaskRoutes(router)
 }
