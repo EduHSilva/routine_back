@@ -21,6 +21,11 @@ type ResponseUser struct {
 	Data    ResponseData `json:"data"`
 }
 
+type ResponseUsers struct {
+	Message string         `json:"message"`
+	Data    []ResponseData `json:"data"`
+}
+
 type ResponseLogin struct {
 	User  ResponseData `json:"user"`
 	Token string       `json:"token,omitempty"`

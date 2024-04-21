@@ -7,6 +7,16 @@ import (
 	"net/http"
 )
 
+// GetAllUsersHandler
+// @BasePath /api/v1
+// @Summary Get users
+// @Description Get all users
+// @Tags User
+// @Accept json
+// @Produce json
+// @Success 200 {object} ResponseUsers
+// @Failure 400 {object} helper.ErrorResponse
+// @Router /user [GET]
 func GetAllUsersHandler(ctx *gin.Context) {
 	var users []schemas.User
 

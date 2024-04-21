@@ -31,7 +31,7 @@ func InitDatabase() (*gorm.DB, error) {
 		return nil, err
 	}
 
-	err = db.AutoMigrate(&schemas.User{})
+	err = db.AutoMigrate(&schemas.User{}, &schemas.Category{}, &schemas.Task{})
 
 	if err != nil {
 		logger.ErrF("Auto migration failed: %s", err)

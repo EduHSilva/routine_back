@@ -1,4 +1,4 @@
-package user
+package category
 
 import (
 	"github.com/Eduardo681/go_routine/config"
@@ -11,6 +11,6 @@ var (
 )
 
 func InitHandler() {
-	logger = config.GetLogger("handler user")
+	logger = config.GetLogger("handler category")
 	db = config.GetDB()
 }

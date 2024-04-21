@@ -1,4 +1,38 @@
 definitions:
+  category.CreateCategoryRequest:
+    properties:
+      title:
+        type: string
+    type: object
+  category.ResponseCategories:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/category.ResponseData'
+        type: array
+      message:
+        type: string
+    type: object
+  category.ResponseCategory:
+    properties:
+      data:
+        $ref: '#/definitions/category.ResponseData'
+      message:
+        type: string
+    type: object
+  category.ResponseData:
+    properties:
+      createAt:
+        type: string
+      deletedAt:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+      updateAt:
+        type: string
+    type: object
   helper.ErrorResponse:
     properties:
       code:
@@ -55,6 +89,15 @@ definitions:
       message:
         type: string
     type: object
+  user.ResponseUsers:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/user.ResponseData'
+        type: array
+      message:
+        type: string
+    type: object
   user.UpdateUserRequest:
     properties:
       name:
@@ -63,6 +106,107 @@ definitions:
 info:
   contact: {}
 paths:
+  /categories:
+    get:
+      consumes:
+      - application/json
+      description: Get all categories
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/category.ResponseCategories'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+      summary: Get categories
+      tags:
+      - Category
+  /category:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a category
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/category.ResponseCategory'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+      summary: Delete category
+      tags:
+      - Category
+    get:
+      consumes:
+      - application/json
+      description: Get one category
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/category.ResponseCategory'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+      summary: Get category
+      tags:
+      - Category
+    post:
+      consumes:
+      - application/json
+      description: Create a new Category
+      parameters:
+      - description: Request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/category.CreateCategoryRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/category.ResponseCategory'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+      summary: Create category
+      tags:
+      - Category
   /login:
     post:
       consumes:
@@ -125,25 +269,19 @@ paths:
     get:
       consumes:
       - application/json
-      description: Get all info of the user
-      parameters:
-      - description: id
-        in: query
-        name: id
-        required: true
-        type: integer
+      description: Get all users
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/user.ResponseUser'
+            $ref: '#/definitions/user.ResponseUsers'
         "400":
           description: Bad Request
           schema:
             $ref: '#/definitions/helper.ErrorResponse'
-      summary: Get user
+      summary: Get users
       tags:
       - User
     post:
