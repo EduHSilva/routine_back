@@ -19,6 +19,9 @@ import (
 // @Param request body UpdateUserRequest true "Request body"
 // @Success 200 {object} ResponseUser
 // @Failure 400 {object} helper.ErrorResponse
+// @Failure 401 {object} helper.ErrorResponse
+// @Security ApiKeyAuth
+// @Param x-access-token header string true "Token de acesso"
 // @Router /user [PUT]
 func UpdateUserHandler(ctx *gin.Context) {
 	request := UpdateUserRequest{}

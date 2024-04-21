@@ -6,6 +6,11 @@
     "paths": {
         "/categories": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Get all categories",
                 "consumes": [
                     "application/json"
@@ -17,6 +22,15 @@
                     "Category"
                 ],
                 "summary": "Get categories",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token de acesso",
+                        "name": "x-access-token",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -29,12 +43,23 @@
                         "schema": {
                             "$ref": "#/definitions/helper.ErrorResponse"
                         }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ErrorResponse"
+                        }
                     }
                 }
             }
         },
         "/category": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Get one category",
                 "consumes": [
                     "application/json"
@@ -53,6 +78,13 @@
                         "name": "id",
                         "in": "query",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Token de acesso",
+                        "name": "x-access-token",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -67,10 +99,21 @@
                         "schema": {
                             "$ref": "#/definitions/helper.ErrorResponse"
                         }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ErrorResponse"
+                        }
                     }
                 }
             },
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Create a new Category",
                 "consumes": [
                     "application/json"
@@ -91,6 +134,13 @@
                         "schema": {
                             "$ref": "#/definitions/category.CreateCategoryRequest"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Token de acesso",
+                        "name": "x-access-token",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -106,6 +156,12 @@
                             "$ref": "#/definitions/helper.ErrorResponse"
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ErrorResponse"
+                        }
+                    },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
@@ -115,6 +171,11 @@
                 }
             },
             "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Delete a category",
                 "consumes": [
                     "application/json"
@@ -133,6 +194,13 @@
                         "name": "id",
                         "in": "query",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Token de acesso",
+                        "name": "x-access-token",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -144,6 +212,12 @@
                     },
                     "400": {
                         "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
                         "schema": {
                             "$ref": "#/definitions/helper.ErrorResponse"
                         }
@@ -205,6 +279,11 @@
         },
         "/user": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Get all users",
                 "consumes": [
                     "application/json"
@@ -216,6 +295,15 @@
                     "User"
                 ],
                 "summary": "Get users",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token de acesso",
+                        "name": "x-access-token",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -228,10 +316,21 @@
                         "schema": {
                             "$ref": "#/definitions/helper.ErrorResponse"
                         }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ErrorResponse"
+                        }
                     }
                 }
             },
             "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Update user info",
                 "consumes": [
                     "application/json"
@@ -259,6 +358,13 @@
                         "schema": {
                             "$ref": "#/definitions/user.UpdateUserRequest"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Token de acesso",
+                        "name": "x-access-token",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -270,6 +376,12 @@
                     },
                     "400": {
                         "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
                         "schema": {
                             "$ref": "#/definitions/helper.ErrorResponse"
                         }
@@ -321,6 +433,11 @@
                 }
             },
             "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Delete a User",
                 "consumes": [
                     "application/json"
@@ -339,6 +456,13 @@
                         "name": "id",
                         "in": "query",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Token de acesso",
+                        "name": "x-access-token",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -350,6 +474,12 @@
                     },
                     "400": {
                         "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
                         "schema": {
                             "$ref": "#/definitions/helper.ErrorResponse"
                         }

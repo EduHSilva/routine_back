@@ -17,6 +17,11 @@ const docTemplate = `{
     "paths": {
         "/categories": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Get all categories",
                 "consumes": [
                     "application/json"
@@ -28,6 +33,15 @@ const docTemplate = `{
                     "Category"
                 ],
                 "summary": "Get categories",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token de acesso",
+                        "name": "x-access-token",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -40,12 +54,23 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/helper.ErrorResponse"
                         }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ErrorResponse"
+                        }
                     }
                 }
             }
         },
         "/category": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Get one category",
                 "consumes": [
                     "application/json"
@@ -64,6 +89,13 @@ const docTemplate = `{
                         "name": "id",
                         "in": "query",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Token de acesso",
+                        "name": "x-access-token",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -78,10 +110,21 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/helper.ErrorResponse"
                         }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ErrorResponse"
+                        }
                     }
                 }
             },
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Create a new Category",
                 "consumes": [
                     "application/json"
@@ -102,6 +145,13 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/category.CreateCategoryRequest"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Token de acesso",
+                        "name": "x-access-token",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -117,6 +167,12 @@ const docTemplate = `{
                             "$ref": "#/definitions/helper.ErrorResponse"
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ErrorResponse"
+                        }
+                    },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
@@ -126,6 +182,11 @@ const docTemplate = `{
                 }
             },
             "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Delete a category",
                 "consumes": [
                     "application/json"
@@ -144,6 +205,13 @@ const docTemplate = `{
                         "name": "id",
                         "in": "query",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Token de acesso",
+                        "name": "x-access-token",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -155,6 +223,12 @@ const docTemplate = `{
                     },
                     "400": {
                         "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
                         "schema": {
                             "$ref": "#/definitions/helper.ErrorResponse"
                         }
@@ -216,6 +290,11 @@ const docTemplate = `{
         },
         "/user": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Get all users",
                 "consumes": [
                     "application/json"
@@ -227,6 +306,15 @@ const docTemplate = `{
                     "User"
                 ],
                 "summary": "Get users",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token de acesso",
+                        "name": "x-access-token",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -239,10 +327,21 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/helper.ErrorResponse"
                         }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ErrorResponse"
+                        }
                     }
                 }
             },
             "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Update user info",
                 "consumes": [
                     "application/json"
@@ -270,6 +369,13 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/user.UpdateUserRequest"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Token de acesso",
+                        "name": "x-access-token",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -281,6 +387,12 @@ const docTemplate = `{
                     },
                     "400": {
                         "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
                         "schema": {
                             "$ref": "#/definitions/helper.ErrorResponse"
                         }
@@ -332,6 +444,11 @@ const docTemplate = `{
                 }
             },
             "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Delete a User",
                 "consumes": [
                     "application/json"
@@ -350,6 +467,13 @@ const docTemplate = `{
                         "name": "id",
                         "in": "query",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Token de acesso",
+                        "name": "x-access-token",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -361,6 +485,12 @@ const docTemplate = `{
                     },
                     "400": {
                         "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
                         "schema": {
                             "$ref": "#/definitions/helper.ErrorResponse"
                         }

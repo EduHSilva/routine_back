@@ -16,6 +16,9 @@ import (
 // @Produce json
 // @Success 200 {object} ResponseCategories
 // @Failure 400 {object} helper.ErrorResponse
+// @Failure 401 {object} helper.ErrorResponse
+// @Security ApiKeyAuth
+// @Param x-access-token header string true "Token de acesso"
 // @Router /categories [GET]
 func GetAllCategoriesHandler(ctx *gin.Context) {
 	var categories []schemas.Category

@@ -19,6 +19,9 @@ import (
 // @Success 200 {object} ResponseCategory
 // @Failure 400 {object} helper.ErrorResponse
 // @Failure 500 {object} helper.ErrorResponse
+// @Failure 401 {object} helper.ErrorResponse
+// @Security ApiKeyAuth
+// @Param x-access-token header string true "Token de acesso"
 // @Router /category [DELETE]
 func DeleteCategoryHandler(ctx *gin.Context) {
 	id := ctx.Query("id")

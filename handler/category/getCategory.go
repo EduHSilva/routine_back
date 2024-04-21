@@ -18,6 +18,9 @@ import (
 // @Param id query uint64 true "id"
 // @Success 200 {object} ResponseCategory
 // @Failure 400 {object} helper.ErrorResponse
+// @Failure 401 {object} helper.ErrorResponse
+// @Security ApiKeyAuth
+// @Param x-access-token header string true "Token de acesso"
 // @Router /category [GET]
 func GetCategoryHandler(ctx *gin.Context) {
 	id := ctx.Query("id")

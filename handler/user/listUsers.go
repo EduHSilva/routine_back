@@ -16,6 +16,9 @@ import (
 // @Produce json
 // @Success 200 {object} ResponseUsers
 // @Failure 400 {object} helper.ErrorResponse
+// @Failure 401 {object} helper.ErrorResponse
+// @Security ApiKeyAuth
+// @Param x-access-token header string true "Token de acesso"
 // @Router /user [GET]
 func GetAllUsersHandler(ctx *gin.Context) {
 	var users []schemas.User
