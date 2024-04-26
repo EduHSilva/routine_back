@@ -7,13 +7,8 @@ import (
 
 type Task struct {
 	gorm.Model
-	Title      string
-	Frequency  Frequency
-	Priority   Priority
-	DateStart  time.Time
-	DateEnd    time.Time
-	StartTime  time.Time
-	EndTime    time.Time
-	CategoryID uint `gorm:"not null"`
-	UserID     uint `gorm:"not null"`
+	Done       bool `gorm:"default:false"`
+	Date       time.Time
+	TaskRuleID uint     `gorm:"not null"`
+	TaskRule   TaskRule `gorm:"foreignKey:TaskRuleID"`
 }

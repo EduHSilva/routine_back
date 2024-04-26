@@ -45,3 +45,23 @@ func (r CreateTaskRequest) Validate() error {
 
 	return nil
 }
+
+type UpdateTaskRequest struct {
+	Title      string `json:"title"`
+	Priority   string `json:"priority"`
+	CategoryID uint   `json:"category_id"`
+}
+
+func (r UpdateTaskRequest) Validate() error {
+	if r.Title != "" {
+		return nil
+	}
+	if r.Priority != "" {
+		return nil
+	}
+	if r.CategoryID != 0 {
+		return nil
+	}
+
+	return fmt.Errorf("at least one param is required")
+}

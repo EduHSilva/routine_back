@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-// CreateTaskHandler
+// CreateTaskRuleHandler
 // @BasePath /api/v1
 // @Summary Create a task
 // @Description Create a new task
@@ -23,8 +23,8 @@ import (
 // @Failure 401 {object} helper.ErrorResponse
 // @Security ApiKeyAuth
 // @Param x-access-token header string true "Access token"
-// @Router /task [POST]
-func CreateTaskHandler(ctx *gin.Context) {
+// @Router /task/rule [POST]
+func CreateTaskRuleHandler(ctx *gin.Context) {
 	request := CreateTaskRequest{}
 	if err := ctx.BindJSON(&request); err != nil {
 		logger.ErrF("validation error: %v", err.Error())
@@ -46,7 +46,7 @@ func CreateTaskHandler(ctx *gin.Context) {
 		}
 	}()
 
-	task := schemas.Task{
+	taskRule := schemas.TaskRule{
 		Title:      request.Title,
 		Frequency:  schemas.Frequency(request.Frequency),
 		Priority:   schemas.Priority(request.Priority),
@@ -58,14 +58,14 @@ func CreateTaskHandler(ctx *gin.Context) {
 		UserID:     request.UserID,
 	}
 
-	if err := tx.Create(&task).Error; err != nil {
+	if err := tx.Create(&taskRule).Error; err != nil {
 		tx.Rollback()
 		logger.ErrF("Error in CreateTaskHandler: %s", err.Error())
 		helper.SendError(ctx, http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	if err := createTaskStatus(tx, task); err != nil {
+	if err := createTaskStatus(tx, taskRule); err != nil {
 		tx.Rollback()
 		helper.SendError(ctx, http.StatusInternalServerError, err.Error())
 		return
@@ -73,10 +73,10 @@ func CreateTaskHandler(ctx *gin.Context) {
 
 	tx.Commit()
 
-	helper.SendSuccess(ctx, "create-task", task)
+	helper.SendSuccess(ctx, "create-task", taskRule)
 }
 
-func createTaskStatus(tx *gorm.DB, task schemas.Task) error {
+func createTaskStatus(tx *gorm.DB, task schemas.TaskRule) error {
 	if task.DateStart.IsZero() {
 		task.DateStart = time.Now()
 	}
@@ -116,10 +116,10 @@ func createTaskStatus(tx *gorm.DB, task schemas.Task) error {
 			continue
 		}
 
-		taskStatus := schemas.TaskStatus{
-			Status: schemas.Pendent,
-			Date:   date,
-			TaskID: task.ID,
+		taskStatus := schemas.Task{
+			Done:       false,
+			Date:       date,
+			TaskRuleID: task.ID,
 		}
 
 		if err := tx.Create(&taskStatus).Error; err != nil {

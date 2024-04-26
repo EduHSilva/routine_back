@@ -28,3 +28,20 @@ type ResponseTasks struct {
 	Message string         `json:"message"`
 	Data    []ResponseData `json:"data"`
 }
+
+type ResponseDateTasks struct {
+	Tasks []ResponseDataWeekTask `json:"tasks"`
+}
+
+type ResponseDataWeekTask struct {
+	ID           uint   `json:"id"`
+	IDTask       uint   `json:"id_task"`
+	Title        string `json:"title"`
+	Priority     string `json:"priority"`
+	StartTime    string `json:"start_time"`
+	EndTime      string `json:"end_time"`
+	CategoryName string `json:"category"`
+	Done         bool   `json:"done"`
+}
+
+type ResponseTaskMap map[string]*ResponseDateTasks

@@ -88,11 +88,59 @@ definitions:
       updateAt:
         type: string
     type: object
+  task.ResponseDataWeekTask:
+    properties:
+      category:
+        type: string
+      done:
+        type: boolean
+      end_time:
+        type: string
+      id:
+        type: integer
+      id_task:
+        type: integer
+      priority:
+        type: string
+      start_time:
+        type: string
+      title:
+        type: string
+    type: object
+  task.ResponseDateTasks:
+    properties:
+      tasks:
+        items:
+          $ref: '#/definitions/task.ResponseDataWeekTask'
+        type: array
+    type: object
   task.ResponseTask:
     properties:
       data:
         $ref: '#/definitions/task.ResponseData'
       message:
+        type: string
+    type: object
+  task.ResponseTaskMap:
+    additionalProperties:
+      $ref: '#/definitions/task.ResponseDateTasks'
+    type: object
+  task.ResponseTasks:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/task.ResponseData'
+        type: array
+      message:
+        type: string
+    type: object
+  task.UpdateTaskRequest:
+    properties:
+      category_id:
+        type: integer
+      priority:
+        type: string
+      title:
         type: string
     type: object
   user.CreateUserRequest:
@@ -338,6 +386,116 @@ paths:
       tags:
       - User
   /task:
+    put:
+      consumes:
+      - application/json
+      description: Update task status
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: integer
+      - description: Access token
+        in: header
+        name: x-access-token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/task.ResponseTasks'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Update task status
+      tags:
+      - Task
+  /task/rule:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a task and yours status
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: integer
+      - description: Access token
+        in: header
+        name: x-access-token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/task.ResponseTask'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete a task
+      tags:
+      - Task
+    get:
+      consumes:
+      - application/json
+      description: Get all info of the task
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: integer
+      - description: Access token
+        in: header
+        name: x-access-token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/task.ResponseTask'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get task
+      tags:
+      - Task
     post:
       consumes:
       - application/json
@@ -376,6 +534,73 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Create a task
+      tags:
+      - Task
+  /tasks/rules:
+    get:
+      consumes:
+      - application/json
+      description: Get all tasks user
+      parameters:
+      - description: Access token
+        in: header
+        name: x-access-token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/task.ResponseTasks'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get tasks
+      tags:
+      - Task
+  /tasks/week:
+    get:
+      consumes:
+      - application/json
+      description: A map that associates dates (in string format) with ResponseDateTasks.
+      parameters:
+      - description: Access token
+        in: header
+        name: x-access-token
+        required: true
+        type: string
+      - description: currentDate
+        in: query
+        name: currentDate
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/task.ResponseTaskMap'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get tasks of week
       tags:
       - Task
   /user:
