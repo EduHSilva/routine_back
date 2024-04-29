@@ -78,9 +78,9 @@ func formatTime(date time.Time) string {
 func getTaskStatusQuery(userID uint, currentDate time.Time) *gorm.DB {
 	query := db.Model(&schemas.Task{})
 
-	query = query.Select("tasks.id, task_id, t.category_id, t.title, status, tasks.date, t.start_time, t.end_time, t.priority, c.title")
+	query = query.Select("tasks.id, task_rule_id, t.category_id, t.title, done, tasks.date, t.start_time, t.end_time, t.priority, c.title")
 
-	query = query.Joins("INNER JOIN tasks t ON t.id = task_id")
+	query = query.Joins("INNER JOIN task_rules t ON t.id = tasks.task_rule_id")
 	query = query.Joins("INNER JOIN categories c ON t.category_id = c.id")
 
 	query = query.Where("t.user_id = ?", userID)
