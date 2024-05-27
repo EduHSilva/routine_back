@@ -17,5 +17,5 @@ type TaskRule struct {
 	CategoryID uint     `gorm:"not null"`
 	Category   Category `gorm:"foreignKey:CategoryID"`
 	UserID     uint     `gorm:"not null"`
-	User       Category `gorm:"foreignKey:UserID"`
+	User       User     `gorm:"foreignKey:UserID"`
 }

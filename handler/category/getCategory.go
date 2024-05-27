@@ -38,5 +38,5 @@ func GetCategoryHandler(ctx *gin.Context) {
 		return
 	}
 
-	helper.SendSuccess(ctx, "get-category", category)
+	helper.SendSuccess(ctx, "get-category", ConvertCategoryToCategoryResponse(category))
 }

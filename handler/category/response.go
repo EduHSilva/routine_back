@@ -1,6 +1,7 @@
 package category
 
 import (
+	"github.com/Eduardo681/go_routine/schemas"
 	"time"
 )
 
@@ -20,4 +21,14 @@ type ResponseCategory struct {
 type ResponseCategories struct {
 	Message string         `json:"message"`
 	Data    []ResponseData `json:"data"`
+}
+
+func ConvertCategoryToCategoryResponse(category *schemas.Category) ResponseData {
+	return ResponseData{
+		ID:        category.ID,
+		CreateAt:  category.CreatedAt,
+		UpdateAt:  category.UpdatedAt,
+		DeletedAt: category.DeletedAt.Time,
+		Title:     category.Title,
+	}
 }

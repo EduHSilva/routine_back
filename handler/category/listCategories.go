@@ -21,12 +21,12 @@ import (
 // @Param x-access-token header string true "Access token"
 // @Router /categories [GET]
 func GetAllCategoriesHandler(ctx *gin.Context) {
-	var categories []schemas.Category
+	var categoryResponses []ResponseData
 
-	if err := db.Find(&categories).Error; err != nil {
+	if err := db.Model(&schemas.Category{}).Scan(&categoryResponses).Error; err != nil {
 		helper.SendError(ctx, http.StatusInternalServerError, "error getting categories from database")
 		return
 	}
 
-	helper.SendSuccess(ctx, "list-categories", categories)
+	helper.SendSuccess(ctx, "list-categories", categoryResponses)
 }
