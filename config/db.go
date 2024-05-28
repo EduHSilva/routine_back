@@ -48,7 +48,7 @@ func initPostgres(logger *Logger) (*gorm.DB, error) {
 	dbName := os.Getenv("DB_NAME")
 	port := os.Getenv("DB_PORT")
 
-	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable", host, user, password, dbName, port)
+	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=require", host, user, password, dbName, port)
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
@@ -59,7 +59,7 @@ func initPostgres(logger *Logger) (*gorm.DB, error) {
 }
 
 func initSQLite(logger *Logger) (*gorm.DB, error) {
-	dbPath := "C:\\PersonalProjects\\routine\\routine_back\\db\\test.db"
+	dbPath := "C:\\PersonalProjects\\routine_backend\\db\\test.db"
 	_, err := os.Stat(dbPath)
 	if os.IsNotExist(err) {
 		logger.Info("Creating database ...")
