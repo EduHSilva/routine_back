@@ -14,7 +14,7 @@ const (
 type Priority string
 
 const (
-	Important Priority = "important"
 	Essential Priority = "essential"
 	Normal    Priority = "normal"
+	Low       Priority = "low"
 )

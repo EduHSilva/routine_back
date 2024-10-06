@@ -23,7 +23,13 @@ import (
 func GetAllCategoriesHandler(ctx *gin.Context) {
 	var categoryResponses []ResponseData
 
-	if err := db.Model(&schemas.Category{}).Scan(&categoryResponses).Error; err != nil {
+	userID, exists := ctx.Get("user_id")
+	if !exists {
+		helper.SendError(ctx, http.StatusUnauthorized, "error getting tasks from database - user not found")
+		return
+	}
+
+	if err := db.Where("user_id = ?", userID).Model(&schemas.Category{}).Scan(&categoryResponses).Error; err != nil {
 		helper.SendError(ctx, http.StatusInternalServerError, "error getting categories from database")
 		return
 	}

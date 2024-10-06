@@ -17,5 +17,5 @@ func initCategoryRoutes(router *gin.Engine) {
 	api.GET("/categories", helper.AuthMiddleware(), category.GetAllCategoriesHandler)
 	api.DELETE("/category", helper.AuthMiddleware(), category.DeleteCategoryHandler)
 	api.POST("/category", helper.AuthMiddleware(), category.CreateCategoryHandler)
-
+	api.PUT("/category", helper.AuthMiddleware(), category.UpdateCategoryHandler)
 }

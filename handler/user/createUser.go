@@ -63,5 +63,5 @@ func CreateUserHandler(ctx *gin.Context) {
 		return
 	}
 
-	helper.SendSuccess(ctx, "create-user", user)
+	helper.SendSuccess(ctx, "create-user", ConvertUserToUserResponse(&user))
 }

@@ -44,5 +44,5 @@ func DeleteCategoryHandler(ctx *gin.Context) {
 		return
 	}
 
-	helper.SendSuccess(ctx, "delete-category", category)
+	helper.SendSuccess(ctx, "delete-category", ConvertCategoryToCategoryResponse(category))
 }

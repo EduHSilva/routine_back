@@ -39,10 +39,6 @@ func (r CreateTaskRequest) Validate() error {
 		return helper.ErrParamIsRequired("category_id", "uint")
 	}
 
-	if r.UserID == 0 {
-		return helper.ErrParamIsRequired("user_id", "uint")
-	}
-
 	return nil
 }
 

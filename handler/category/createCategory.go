@@ -39,7 +39,7 @@ func CreateCategoryHandler(ctx *gin.Context) {
 	}
 
 	var existingCategory schemas.Category
-	if err := db.Where("title = ?", request.Title).First(&existingCategory).Error; err == nil {
+	if err := db.Where("title = ? and user_id", request.Title, request.UserID).First(&existingCategory).Error; err == nil {
 		logger.Err("Category already exists")
 		helper.SendError(ctx, http.StatusBadRequest, "Category already exists with the same title")
 		return
@@ -50,7 +50,8 @@ func CreateCategoryHandler(ctx *gin.Context) {
 	}
 
 	category := schemas.Category{
-		Title: request.Title,
+		Title:  request.Title,
+		UserID: request.UserID,
 	}
 
 	if err := db.Create(&category).Error; err != nil {

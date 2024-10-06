@@ -3,6 +3,8 @@ definitions:
     properties:
       title:
         type: string
+      user_id:
+        type: integer
     type: object
   category.ResponseCategories:
     properties:
@@ -31,6 +33,11 @@ definitions:
       title:
         type: string
       updateAt:
+        type: string
+    type: object
+  category.UpdateCategoryRequest:
+    properties:
+      title:
         type: string
     type: object
   helper.ErrorResponse:
@@ -353,6 +360,47 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Create category
+      tags:
+      - Category
+    put:
+      consumes:
+      - application/json
+      description: Update the title of category
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: integer
+      - description: Request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/category.UpdateCategoryRequest'
+      - description: Access token
+        in: header
+        name: x-access-token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/category.ResponseCategory'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/helper.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Update category
       tags:
       - Category
   /login:
